@@ -1,0 +1,41 @@
+.container
+{
+    max-width: 100%;
+}  
+.form-menu
+{
+    background-color: white;
+    display: block;
+    width: 100%;
+    height: auto;
+    padding-bottom: 70px;
+    padding-top: 70px;
+    border-radius: 2%;
+}
+.form-menu input,
+.form-menu select{
+    
+    display: flex;
+    margin: 1px;
+    width: 90%;
+    height: 30px;
+    
+}
+.form-menu button{
+    margin-top: 10px;
+    display: flex;
+}
+.form-menu label
+{
+    color: gray;
+    height: 20px;
+    margin-top: 5px;
+}
+.infoPresupuesto
+{
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    display: inline-flex;
+    width: 350px;
+    height: 500px;
+    border-radius:10% ;
+}

@@ -1,0 +1,44 @@
+<div class="container" align="center">
+  <form class="form-menu" >
+    <label><strong>Nombre</strong></label>
+    <input class="form-control " type="text"  name="nombre" [(ngModel)]="nombre" >
+
+    <label><strong>Numero</strong></label>
+    <input class="form-control" type="text" pattern="\d*"  name="phone" [(ngModel)]="phone" (input)="validarTelefono($event)">
+    
+    <label><strong>Correo</strong></label>
+    <input class="form-control" type="text"  name="mail" [(ngModel)]="mail">
+    
+    <label><strong>Modelo</strong></label>
+    <input class="form-control" type="text" [value]="modeloSeleccionado"  disabled>
+    
+    <label><strong>Precio</strong></label>
+    <input type="text" [value]="precioSeleccionado | currency:'MXN':'symbol'" aria-label="First name" disabled>
+    
+    <label><strong>Enganche</strong></label>
+    <input type="text" [value]="precioEnganche | currency:'MXN':'symbol'" aria-label="First name" disabled>
+    
+    <label><strong>Meses</strong></label>
+    <input type="text" [value]="plazo" aria-label="First name" disabled>
+    
+    <label><strong>Mensulidades</strong></label>
+    <input type="text" [value]="mensualidad | currency:'MXN':'symbol'" aria-label="First name" disabled>
+    
+    <button type="button" class="btn btn-outline-primary" (click)="enviar()">Enviar</button>
+  </form>
+</div>
+<div class="infoPresupuesto"*ngIf="showInfo">
+  <div class="texto" align="center" >
+    <p><strong>Nombre:</strong> {{ nombre }}</p>
+    <p><strong>Número:</strong> {{ phone }}</p>
+    <p><strong>Correo:</strong> {{ mail }}</p>
+    <p><strong>Modelo:</strong> {{ modeloSeleccionado }}</p>
+    <p><strong>Precio:</strong> {{ precioSeleccionado | currency:'MXN':'symbol' }}</p>
+    <p><strong>Enganche:</strong> {{ precioEnganche | currency:'MXN':'symbol' }}</p>
+    <p><strong>Plazo:</strong>{{plazo}}</p>
+    <p><strong>Mensualidas</strong>{{mensualidad | currency:'MXN':'symbol'}}</p>
+  </div>
+</div>
+
+
+

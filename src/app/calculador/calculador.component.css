@@ -1,0 +1,52 @@
+.calculadora
+{
+background-color: white;
+padding-bottom: 10px;
+}
+#calcuContainer 
+{
+    margin: 10px;
+    margin-bottom: 20%;
+    margin-top: 20%;
+    width: auto;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px; /* Espacio entre botones */
+  }
+
+.price
+{
+    background-color: lightgrey;
+    width: 80%;
+    height: 50%;
+    text-align: center;
+    border:none;
+}
+
+.price-div{
+    background-color: lightgray;
+}
+
+.mensualidad
+{
+    margin-top: 50px;
+}
+
+.aplicar
+{
+    margin-top:10%;
+    width: 40%;
+    background-color: #fff;
+    border-radius: 10px;
+
+}
+/* CSS */
+
+
+.aplicar:active {
+  border: none;
+  background-color:grey;
+  color: white;
+}

@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="btn-group" role="group" aria-label="Basic radio toggle button group" id="calcuMensualidad"> 
+        <input type="radio" class="btn-check" name="grupoMensualidad" value="12" id="btnradioM1" autocomplete="off" [(ngModel)]="meses" (change)="SeleccionMensualiad($event)">
+        <label class="btn btn-outline-primary" for="btnradioM1">12 Meses</label>
+
+        <input type="radio" class="btn-check" name="grupoMensualidad" value="24" id="btnradioM2" autocomplete="off" [(ngModel)]="meses" (change)="SeleccionMensualiad($event)">
+        <label class="btn btn-outline-primary" for="btnradioM2">24 Meses</label>
+
+        <input type="radio" class="btn-check" name="grupoMensualidad" value="36" id="btnradioM3" autocomplete="off" [(ngModel)]="meses" (change)="SeleccionMensualiad($event)">
+        <label class="btn btn-outline-primary" for="btnradioM3">36 Meses</label>
+
+        <input type="radio" class="btn-check" name="grupoMensualidad" value="48" id="btnradioM4" autocomplete="off" [(ngModel)]="meses" (change)="SeleccionMensualiad($event)">
+        <label class="btn btn-outline-primary" for="btnradioM4">48 Meses</label>
+    </div>
+    <div class="totalMensualida">
+        <input type="text" [value]="mensualidad | currency:'MXN':'symbol'" aria-label="First name" disabled>
+    </div>
+</div>

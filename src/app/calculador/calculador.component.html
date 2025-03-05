@@ -1,0 +1,60 @@
+<div align="center" class="calculadora"  >
+    <h2 style="color:grey;">Eliguelo</h2>
+    <div class="container" *ngIf="!showFormu" >
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group" id="calcuContainer"> 
+            <input type="radio" class="btn-check" name="grupoVehiculo" value="ATV" id="btnradio1" autocomplete="off" [(ngModel)]="grupoVehiculo" (change)="selectedVicle($event)">
+            <label class="btn btn-outline-primary" for="btnradio1">ATV</label>
+        
+            <input type="radio" class="btn-check" name="grupoVehiculo" value="UTV" id="btnradio2" autocomplete="off" [(ngModel)]="grupoVehiculo" (change)="selectedVicle($event)">
+            <label class="btn btn-outline-primary" for="btnradio2">UTV</label>
+        
+            <input type="radio" class="btn-check" name="grupoVehiculo" value="SSV" id="btnradio3" autocomplete="off" [(ngModel)]="grupoVehiculo" (change)="selectedVicle($event)">
+            <label class="btn btn-outline-primary" for="btnradio3">SSV</label>
+        
+            <input type="radio" class="btn-check" name="grupoVehiculo" value="YOUTH" id="btnradio4" autocomplete="off" [(ngModel)]="grupoVehiculo" (change)="selectedVicle($event)">
+            <label class="btn btn-outline-primary" for="btnradio4">YOUTH</label>
+        
+            <input type="radio" class="btn-check" name="grupoVehiculo" value="MOTO" id="btnradio5" autocomplete="off" [(ngModel)]="grupoVehiculo" (change)="selectedVicle($event)">
+            <label class="btn btn-outline-primary" for="btnradio5">MOTO</label>
+        </div>
+
+        <!-- 📌 Select dinámico que cambia según la categoría seleccionada -->
+        <div class="input-group mb-3" *ngIf="selectedCategory">
+          <label class="input-group-text" for="modeloSelect">{{ selectedCategory }}</label>
+          <select class="form-select" id="modeloSelect" [(ngModel)]="modelo" (change)="actualizarPrecio($event)">
+              <option value="" disabled selected>Elige un modelo</option>
+              <option *ngFor="let model of filteredModels" [value]="model.ID">{{ model.Modelo }}</option>
+          </select>
+        </div>
+
+        <!-- Input para mostrar el precio formateado -->
+        <div class="price-div" *ngIf="show">
+          <h1>Precio</h1>
+          <input type="text" class="form-control price" [value]="precioSeleccionado | currency:'MXN':'symbol'"  readonly>
+        </div>
+        
+        <div class="mensualidad" *ngIf="show" > 
+          <hr/>
+          <label for="customRange1" class="form-label">Porcentaje</label>
+          <h3> {{enganche}}% </h3>
+          <input type="range" min="10" max="70" class="form-range" value="10" (input)="actualizarPorcentaje($event)" id="customRange1">
+          <div class="row">
+            <div class="col">
+              <input type="text" class="form-control" [value]="precioEnganche | currency:'MXN':'symbol'" aria-label="First name" (input)="validarEnganche($event)" disabled >
+
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" [value]="restante | currency:'MXN':'symbol'" placeholder="Restante" aria-label="Last name" disabled>
+            </div>
+          </div>
+          <button class="aplicar" type="button" (click)="showFinanciamiento($event)">Financiamiento</button>
+        </div>
+        <div align="center" class="formulario-cotizacion" *ngIf="showFinan" >
+          <app-fianciamiento></app-fianciamiento>
+          <button class="aplicar" type="button" (click)="showFormulario($event)">Solictalo</button>
+        </div>
+    </div>
+    <div *ngIf="showFormu">
+      <app-formulario></app-formulario>
+    </div>
+</div>
