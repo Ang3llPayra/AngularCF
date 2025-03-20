@@ -29,7 +29,7 @@ export class ExcelService {
   }
 
   async readExcelFromAssets(): Promise<any[]> {
-    const response = await fetch('/assets/Prices.xlsx');
+    const response = await fetch('assets/Prices.xlsx');
     const buffer = await response.arrayBuffer();
     const workbook = XLSX.read(buffer, { type: 'array' });
     const sheetName = workbook.SheetNames[0];

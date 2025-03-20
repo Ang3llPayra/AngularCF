@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FianciamientoService } from '../fianciamiento.service';
+import { ApiService } from '../servicios/api.service'; // Importar el servicio
 
 @Component({
   selector: 'app-formulario',
@@ -13,6 +14,7 @@ import { FianciamientoService } from '../fianciamiento.service';
   styleUrl: './formulario.component.css'
 })
 export class FormularioComponent implements OnInit {
+  datos: any;
   precioSeleccionado:number=0;
   precioEnganche:number=0;
   nombre:string="";
@@ -23,10 +25,13 @@ export class FormularioComponent implements OnInit {
   modeloSeleccionado:string="";
   showInfo:boolean=false;
   
-  constructor(private financiamientoService: FianciamientoService) {}
+  constructor(
+	  private financiamientoService: FianciamientoService,
+	  private apiService: ApiService
+  	) {}
 
   // traer variables
-  ngOnInit() {
+  ngOnInit(): void {
     this.financiamientoService.precioSeleccionado$.subscribe((precio) => {
       this.precioSeleccionado = precio; // 🔥 Se actualizará automáticamente cuando cambie en `app-calculador`
     });
@@ -46,6 +51,11 @@ export class FormularioComponent implements OnInit {
     this.financiamientoService.modelo$.subscribe((modelo)=>{
       this.modeloSeleccionado = modelo;
     })
+
+    this.apiService.obtenerDatos().subscribe(response => {
+	    this.datos = response;
+	    console.log('Datos recibidos', this.datos);
+    });
   }
 
   validarTelefono(event: Event) {
@@ -63,32 +73,32 @@ export class FormularioComponent implements OnInit {
   }
 
 
-  enviar()
-  {
-    if(this.nombre == "" || this.phone == "" || this.mail == "")
-    {
-      console.log("Necesitas agregar los datos necesarios");
-    }
-    else
-    {
-        const contenido = `
-        Nombre: ${this.nombre}
-        Número: ${this.phone}
-        Correo: ${this.mail}
-        Modelo: ${this.modeloSeleccionado}
-        Precio: ${this.precioSeleccionado.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' })}
-        Enganche: ${this.precioEnganche.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' })}
-        Plazo: ${this.plazo} meses
-        Mensualidad: ${this.mensualidad.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' })}
-      `;
+  enviar() {
+  	if (this.nombre === "" || this.phone === "" || this.mail === "") {
+    	console.log("Necesitas agregar los datos necesarios");
+  	} else {
+    	// Datos a enviar a la API
+    	const lead = {
+      		nombre: this.nombre,
+      		numero: this.phone,
+      		correo: this.mail,
+      		modelo: this.modeloSeleccionado,
+      		precio: this.precioSeleccionado,
+      		enganche: this.precioEnganche,
+      		plazo: this.plazo,
+      		mensualidad: this.mensualidad
+    	};
 
-      const blob = new Blob([contenido], { type: 'text/plain' });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = 'datos_financiamiento.txt';
-      a.click();
-      URL.revokeObjectURL(a.href);
-      window.location.reload();
+    	// Enviar datos a la API
+    	this.apiService.enviarDatos(lead).subscribe(
+      		response => {
+        	console.log("Datos enviados correctamente:", response);
+		window.location.reload();
+      	},
+      	error => {
+        	console.error("Error al enviar datos:", error);
+      	}
+      );
     }
   }
 }
