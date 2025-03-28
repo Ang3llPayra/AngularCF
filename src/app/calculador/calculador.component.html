@@ -1,7 +1,6 @@
-<div align="center" class="calculadora"  >
-    <h2 style="color:grey;">Eliguelo</h2>
-    <div class="container" *ngIf="!showFormu" >
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group" id="calcuContainer"> 
+<div align="center" class="calculadora">
+    <div class="container"  *ngIf="!showFormu" >
+        <div class="btn-group btn-mi"  role="group" aria-label="Basic radio toggle button group" id="calcuContainer"> 
             <input type="radio" class="btn-check" name="grupoVehiculo" value="ATV" id="btnradio1" autocomplete="off" [(ngModel)]="grupoVehiculo" (change)="selectedVicle($event)">
             <label class="btn btn-outline-primary" for="btnradio1">ATV</label>
         
@@ -19,7 +18,7 @@
         </div>
 
         <!-- 📌 Select dinámico que cambia según la categoría seleccionada -->
-        <div class="input-group mb-3" *ngIf="selectedCategory">
+        <div class="mi-group input-group mb-3" *ngIf="selectedCategory">
           <label class="input-group-text" for="modeloSelect">{{ selectedCategory }}</label>
           <select class="form-select" id="modeloSelect" [(ngModel)]="modelo" (change)="actualizarPrecio($event)">
               <option value="" disabled selected>Elige un modelo</option>
@@ -28,26 +27,27 @@
         </div>
 
         <!-- Input para mostrar el precio formateado -->
-        <div class="price-div" *ngIf="show">
+        <div class="price-div">
           <h1>Precio</h1>
-          <input type="text" class="form-control price" [value]="precioSeleccionado | currency:'MXN':'symbol'"  readonly>
+          <input type="text" style="font-size: 30px;" class="form-control price" [value]="precioSeleccionado | currency:'MXN':'symbol'"  readonly>
         </div>
         
-        <div class="mensualidad" *ngIf="show" > 
+        <div class="mensualidad" > 
           <hr/>
           <label for="customRange1" class="form-label">Porcentaje</label>
-          <h3> {{enganche}}% </h3>
-          <input type="range" min="10" max="70" class="form-range" value="10" (input)="actualizarPorcentaje($event)" id="customRange1">
+          <h1> {{enganche}}% </h1>
+          <input type="range" [disabled]="show" min="20" max="70" class="form-range" value="20" (input)="actualizarPorcentaje($event)" id="customRange1">
           <div class="row">
             <div class="col">
-              <input type="text" class="form-control" [value]="precioEnganche | currency:'MXN':'symbol'" aria-label="First name" (input)="validarEnganche($event)" disabled >
-
+              <input type="text" style="text-align:center; font-size: 20px;"class="form-control" [value]="precioEnganche | currency:'MXN':'symbol'" aria-label="First name" (input)="validarEnganche($event)" disabled > 
+	      <label><strong>Enganche</strong></label>
             </div>
             <div class="col">
-              <input type="text" class="form-control" [value]="restante | currency:'MXN':'symbol'" placeholder="Restante" aria-label="Last name" disabled>
+              <input type="text" style="text-align: center; font-size:20px;" class="form-control" [value]="restante | currency:'MXN':'symbol'" placeholder="Restante" aria-label="Last name" disabled>
+	      <label><strong>Restante</strong></label>
             </div>
           </div>
-          <button class="aplicar" type="button" (click)="showFinanciamiento($event)">Financiamiento</button>
+          <button class="aplicar" [disabled]="show" type="button" (click)="actualizarPorcentaje({ target: { value: enganche } }); showFinanciamiento($event)">Financiamiento</button>
         </div>
         <div align="center" class="formulario-cotizacion" *ngIf="showFinan" >
           <app-fianciamiento></app-fianciamiento>

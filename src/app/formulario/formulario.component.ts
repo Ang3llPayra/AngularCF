@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FianciamientoService } from '../fianciamiento.service';
 import { ApiService } from '../servicios/api.service'; // Importar el servicio
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-formulario',
@@ -23,8 +24,10 @@ export class FormularioComponent implements OnInit {
   plazo:number=0;
   mensualidad:number=0;
   modeloSeleccionado:string="";
-  showInfo:boolean=false;
-  
+  apellido:string="";
+  estado:string="";
+  showB:boolean=false;
+  showLoad:boolean=false;
   constructor(
 	  private financiamientoService: FianciamientoService,
 	  private apiService: ApiService
@@ -52,11 +55,7 @@ export class FormularioComponent implements OnInit {
       this.modeloSeleccionado = modelo;
     })
 
-    this.apiService.obtenerDatos().subscribe(response => {
-	    this.datos = response;
-	    console.log('Datos recibidos', this.datos);
-    });
-  }
+ }
 
   validarTelefono(event: Event) {
     let input = event.target as HTMLInputElement;
@@ -74,9 +73,11 @@ export class FormularioComponent implements OnInit {
 
 
   enviar() {
-  	if (this.nombre === "" || this.phone === "" || this.mail === "") {
+  	if (this.nombre === "" || this.phone === "" || this.mail === "" || this.apellido == "") {
     	console.log("Necesitas agregar los datos necesarios");
   	} else {
+	this.showB = true;
+	this.showLoad = true;
     	// Datos a enviar a la API
     	const lead = {
       		nombre: this.nombre,
@@ -86,14 +87,19 @@ export class FormularioComponent implements OnInit {
       		precio: this.precioSeleccionado,
       		enganche: this.precioEnganche,
       		plazo: this.plazo,
-      		mensualidad: this.mensualidad
+      		mensualidad: this.mensualidad,
+		apellido: this.apellido,
+		estado: this.estado
     	};
 
     	// Enviar datos a la API
     	this.apiService.enviarDatos(lead).subscribe(
       		response => {
         	console.log("Datos enviados correctamente:", response);
-		window.location.reload();
+		this.showLoad = false;
+		const modalElement = document.getElementById('thankYouModal');
+    		const modal = new bootstrap.Modal(modalElement);
+    		modal.show();
       	},
       	error => {
         	console.error("Error al enviar datos:", error);
@@ -101,4 +107,9 @@ export class FormularioComponent implements OnInit {
       );
     }
   }
+
+  recargar() {
+    window.location.reload(); // o cualquier acción que necesites
+  }
+
 }

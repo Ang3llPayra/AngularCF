@@ -1,7 +1,12 @@
 <div class="container" align="center">
-  <form class="form-menu" >
+  <form class="form-menu">
+    <button type="button" class="btn-close boton-cerrar" [disabled]="showB" (click)="recargar()" aria-label="Close"></button>
+
     <label><strong>Nombre</strong></label>
-    <input class="form-control " type="text"  name="nombre" [(ngModel)]="nombre" >
+    <input class="form-control " type="text"  name="nombre" [(ngModel)]="nombre">
+
+    <label><strong>Apellido</strong></label>
+    <input class="form-control " type="text"  name="nombre" [(ngModel)]="apellido">
 
     <label><strong>Numero</strong></label>
     <input class="form-control" type="text" pattern="\d*"  name="phone" [(ngModel)]="phone" (input)="validarTelefono($event)">
@@ -21,24 +26,30 @@
     <label><strong>Meses</strong></label>
     <input type="text" [value]="plazo" aria-label="First name" disabled>
     
-    <label><strong>Mensulidades</strong></label>
+    <label><strong>Mensualidades</strong></label>
     <input type="text" [value]="mensualidad | currency:'MXN':'symbol'" aria-label="First name" disabled>
     
-    <button type="button" class="btn btn-outline-primary" (click)="enviar()">Enviar</button>
+    <button type="button" class="btn btn-mi btn-outline-primary" [disabled]="showB" (click)="enviar()">Enviar</button>
   </form>
-</div>
-<div class="infoPresupuesto"*ngIf="showInfo">
-  <div class="texto" align="center" >
-    <p><strong>Nombre:</strong> {{ nombre }}</p>
-    <p><strong>Número:</strong> {{ phone }}</p>
-    <p><strong>Correo:</strong> {{ mail }}</p>
-    <p><strong>Modelo:</strong> {{ modeloSeleccionado }}</p>
-    <p><strong>Precio:</strong> {{ precioSeleccionado | currency:'MXN':'symbol' }}</p>
-    <p><strong>Enganche:</strong> {{ precioEnganche | currency:'MXN':'symbol' }}</p>
-    <p><strong>Plazo:</strong>{{plazo}}</p>
-    <p><strong>Mensualidas</strong>{{mensualidad | currency:'MXN':'symbol'}}</p>
+  <div class="spinner-border" role="status" *ngIf="showLoad">
+  	<span class="visually-hidden">Loading...</span>
+  </div>
+
+  <!-- Ventana emergente "Thank You" -->
+  <div class="modal fade" id="thankYouModal" tabindex="-1" aria-labelledby="thankYouModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+      <div class="text-success mb-3">
+        <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" fill="currentColor"
+             class="bi bi-check-circle" viewBox="0 0 16 16">
+          <path d="M15.854 7.146a.5.5 0 1 0-.708.708L15.854 7.146zm-9.708 4.708a.5.5 0 0 0 .708-.708l-.708.708zm-.708-3.292a.5.5 0 0 0 .708-.708l-.708.708zM8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M10.97 5.97a.75.75 0 0 1 1.08 1.04l-3.992 4.99a.75.75 0 0 1-1.08.02L5.324 10.384a.75.75 0 1 1 1.06-1.06l1.094 1.093 3.492-4.437z"/>
+        </svg>
+      </div>
+      <h4 class="mb-2">¡Felicidades!</h4>
+      <p>Tu credito esta a pocos pasos de ser aprovado. Un asesor se pondra en contacto lo mas pronto posible!!!</p>
+      <button class="btn btn-outline-success" (click)="recargar()">Regresar</button>
+    </div>
+   </div>
   </div>
 </div>
-
-
-

@@ -39,7 +39,7 @@ export class CalculadorComponent {
   ssv = false;
   youth = false;
   moto = false;
-  show = false;
+  show = true;
   showFormu = false;
   showEnganche = false;
   showFinan = false;
@@ -48,7 +48,7 @@ export class CalculadorComponent {
   modeloNombre: string = ""; // Nombre del modelo seleccionado
   precioSeleccionado: number = 0;
 
-  enganche: number = 10 ;
+  enganche: number = 20 ;
   engancheCash: string = "$0";
   precioEnganche: number = 0;
   restante: number = 0;
@@ -92,7 +92,7 @@ export class CalculadorComponent {
     console.log("Modelo seleccionado:", modeloSeleccionado?.Modelo);
     console.log("Precio seleccionado:", this.precioSeleccionado);
 
-    this.show = true;
+    this.show = false;
 
     // 📌 Nuevo cálculo del enganche y restante usando `this.precioSeleccionado`
     const precioTotal = this.precioSeleccionado || 0;

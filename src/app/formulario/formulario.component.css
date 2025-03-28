@@ -1,7 +1,13 @@
 .container
 {
     max-width: 100%;
-}  
+}
+.boton-cerrar
+{	
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
 .form-menu
 {
     background-color: white;
@@ -30,6 +36,7 @@
     color: gray;
     height: 20px;
     margin-top: 5px;
+    text-align:left !important;
 }
 .infoPresupuesto
 {
@@ -39,3 +46,16 @@
     height: 500px;
     border-radius:10% ;
 }
+
+.btn {
+        background-color: white;
+        color:black;
+        border-color: #6c757d;
+}
+.btn:active{
+        background-color: #ccc;
+        color: white;
+        border-color: #6c757d;
+}
+
+

@@ -2,11 +2,22 @@
 {
 
     margin: 10px;
-    margin-bottom: 20%;
-    margin-top: 20%;
+    margin-bottom: 50px;
+    margin-top: 50px;
     width: auto;
 }
 .totalMensualida 
 {
-    margin-top: -5%;
+    margin-top: 40px;
+}
+
+.btn-check + label {
+        background-color: white;
+        color:black;
+        border-color: #6c757d;
+}
+.btn-check:checked + label {
+        background-color: #ccc;
+        color: white;
+        border-color: #6c757d;
 }

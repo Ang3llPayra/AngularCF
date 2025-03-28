@@ -13,6 +13,7 @@
         <label class="btn btn-outline-primary" for="btnradioM4">48 Meses</label>
     </div>
     <div class="totalMensualida">
-        <input type="text" [value]="mensualidad | currency:'MXN':'symbol'" aria-label="First name" disabled>
+	    <label style="font-size:18px;">Mensualidad</label><br>
+        <input type="text" style="font-size:20px; text-align:center;" [value]="totalMensualidad | currency:'MXN':'symbol'" aria-label="First name" disabled>
     </div>
 </div>
